@@ -1,0 +1,759 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Redis,分布式缓存," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="项目简介1 项目背景1.1 当前缓存的使用现状及问题缓存云（统一Redis平台）来源于对缓存资源进行统一管理的需求，该需求最初从自动部署解决方案的讨论中衍生出来，解决运维的问题。目前，公司内部对缓存的使用存在如下问题和特点：
+
+各个项目组单独部署缓存系统，有些项目组资源利用率不高；
+各个项目组需要专人维护缓存系统的正常运行，这些人需要对缓存有很深的了解才能维护好这些系统；
+各个项目组对缓存的使用方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在京东的学习之JIMDB(一)">
+<meta property="og:url" content="https://www.yangkui.net/2016/11/14/jdstudy/index.html">
+<meta property="og:site_name" content="终日乾乾,与时偕行">
+<meta property="og:description" content="项目简介1 项目背景1.1 当前缓存的使用现状及问题缓存云（统一Redis平台）来源于对缓存资源进行统一管理的需求，该需求最初从自动部署解决方案的讨论中衍生出来，解决运维的问题。目前，公司内部对缓存的使用存在如下问题和特点：
+
+各个项目组单独部署缓存系统，有些项目组资源利用率不高；
+各个项目组需要专人维护缓存系统的正常运行，这些人需要对缓存有很深的了解才能维护好这些系统；
+各个项目组对缓存的使用方">
+<meta property="og:updated_time" content="2016-11-14T03:29:57.631Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在京东的学习之JIMDB(一)">
+<meta name="twitter:description" content="项目简介1 项目背景1.1 当前缓存的使用现状及问题缓存云（统一Redis平台）来源于对缓存资源进行统一管理的需求，该需求最初从自动部署解决方案的讨论中衍生出来，解决运维的问题。目前，公司内部对缓存的使用存在如下问题和特点：
+
+各个项目组单独部署缓存系统，有些项目组资源利用率不高；
+各个项目组需要专人维护缓存系统的正常运行，这些人需要对缓存有很深的了解才能维护好这些系统；
+各个项目组对缓存的使用方">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 6275248710561564000,
+      author: 'Ash'
+    }
+  };
+</script>
+
+  <title> 在京东的学习之JIMDB(一) | 终日乾乾,与时偕行 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">终日乾乾,与时偕行</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">从哪来，到哪去</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                在京东的学习之JIMDB(一)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-14T00:00:00+08:00" content="2016-11-14">
+              2016-11-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JIMDB/" itemprop="url" rel="index">
+                    <span itemprop="name">JIMDB</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JIMDB/JD-COM/" itemprop="url" rel="index">
+                    <span itemprop="name">JD.COM</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/14/jdstudy/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/14/jdstudy/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h3><h4 id="1-项目背景"><a href="#1-项目背景" class="headerlink" title="1 项目背景"></a>1 项目背景</h4><h5 id="1-1-当前缓存的使用现状及问题"><a href="#1-1-当前缓存的使用现状及问题" class="headerlink" title="1.1 当前缓存的使用现状及问题"></a>1.1 当前缓存的使用现状及问题</h5><p>缓存云（统一Redis平台）来源于对缓存资源进行统一管理的需求，该需求最初从自动部署解决方案的讨论中衍生出来，解决运维的问题。目前，公司内部对缓存的使用存在如下问题和特点：</p>
+<ul>
+<li>各个项目组单独部署缓存系统，有些项目组资源利用率不高；</li>
+<li>各个项目组需要专人维护缓存系统的正常运行，这些人需要对缓存有很深的了解才能维护好这些系统；</li>
+<li>各个项目组对缓存的使用方式不尽相同，往往需要自己开发某些程序来达到应用目的。</li>
+</ul>
+<p>而JimDB则是缓存云的进一步技术创新 - 完全管理的分布式缓存与高速key/value存储服务。</p>
+<h5 id="1-2-如何解决这些问题"><a href="#1-2-如何解决这些问题" class="headerlink" title="1.2 如何解决这些问题"></a>1.2 如何解决这些问题</h5><p>搭建缓存资源池，实施平台化的统一管理。解决缓存各自申请，缺少统一管理、统一监控、failover的功能等问题，通过统一化提高主机资源的利用率，便于运维管理。</p>
+<p>JimDB后期规划对外提供公有云服务，支持ISV或普通开发者的应用。</p>
+<h4 id="2-JimDB的功能特性"><a href="#2-JimDB的功能特性" class="headerlink" title="2 JimDB的功能特性"></a>2 JimDB的功能特性</h4><h5 id="2-1-支持大容量缓存"><a href="#2-1-支持大容量缓存" class="headerlink" title="2.1 支持大容量缓存"></a>2.1 支持大容量缓存</h5><p>采用“pre-sharding”技术，将缓存数据分摊到多个分片（每个分片上具有相同的构成，比如：都是一主一从两个节点）上，从而可以创建出大容量的缓存。将来会利用集群技术创建大容量的缓存。</p>
+<h6 id="支持2种存储类型"><a href="#支持2种存储类型" class="headerlink" title="支持2种存储类型"></a>支持2种存储类型</h6><ul>
+<li>Jimdb M（纯内存）</li>
+<li>Jimdb S（内存+SSD两级存储）</li>
+</ul>
+<p>选择Jimdb S版，可以存储10倍于内存容量的数据，并且提供更加可靠的持久性。</p>
+<h5 id="2-2-缓存数据的高可用性"><a href="#2-2-缓存数据的高可用性" class="headerlink" title="2.2  缓存数据的高可用性"></a>2.2  缓存数据的高可用性</h5><p>和mysql相同，采用的也是异步复制，目前可以达到等同于mysql级别的数据可用性。</p>
+<p>Jimdb S版支持命令级的同步复制，超过mysql级别的数据可用性。</p>
+<p>可设置为自动的failover</p>
+<h5 id="2-3-支持多种I-O策略"><a href="#2-3-支持多种I-O策略" class="headerlink" title="2.3 支持多种I/O策略"></a>2.3 支持多种I/O策略</h5><p>支持读写分离、双写等I/O策略；针对读操作可分为“主优先”、“从优先”、“随机挑选”等方式；针对写操作可分为“同步写”和“异步写”。不同的I/O策略，对数据一致性的影响也不同，应用可以根据自身对数据一致性的需求，选择不同的I/O策略。</p>
+<h5 id="2-4-支持动态扩容"><a href="#2-4-支持动态扩容" class="headerlink" title="2.4 支持动态扩容"></a>2.4 支持动态扩容</h5><p>动态扩容有两种支持两种形式的动态扩容。第一种形式，通过在单个节点上预留内存，然后需要扩容时直接使用预留内存的方法达到扩容的目的；第二种形式，通过增加分片数并结 合数据迁移来达到扩容的目的。第一种形式和第二种形式可以结合使用。第一种方式对应用的影响最小，但扩容效果有限；第二种方式扩容效果好，但由于会引发数 据迁移，从而挤占网络带宽，会对应用有一定的影响。</p>
+<h5 id="2-5-支持特殊的命令及应用（spring-cache等）"><a href="#2-5-支持特殊的命令及应用（spring-cache等）" class="headerlink" title="2.5 支持特殊的命令及应用（spring-cache等）"></a>2.5 支持特殊的命令及应用（spring-cache等）</h5><p>目前已经支持了spring-cache与缓存的结合使用。将来会增加若干其他的特殊命令和应用。</p>
+<h4 id="3-如何使用"><a href="#3-如何使用" class="headerlink" title="3 如何使用"></a>3 如何使用</h4><p>使用之前应申请JIMDB集群,拿到jimURL或者(configId,和token)</p>
+<h5 id="3-1-JAVA如何使用JIMDB"><a href="#3-1-JAVA如何使用JIMDB" class="headerlink" title="3.1 JAVA如何使用JIMDB"></a>3.1 JAVA如何使用JIMDB</h5><h6 id="3-1-1-通过MAVEN引如JIMDB-java客户端"><a href="#3-1-1-通过MAVEN引如JIMDB-java客户端" class="headerlink" title="3.1.1 通过MAVEN引如JIMDB java客户端"></a>3.1.1 通过MAVEN引如JIMDB java客户端</h6><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.jd.jim.cli<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jim-cli-jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.5-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.jd.jim.cli<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jim-cli-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.5-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h6 id="3-1-2-Spring环境下配置使用JIMDB-CLIENT"><a href="#3-1-2-Spring环境下配置使用JIMDB-CLIENT" class="headerlink" title="3.1.2 Spring环境下配置使用JIMDB CLIENT"></a>3.1.2 Spring环境下配置使用JIMDB CLIENT</h6><p>注意：在系统退出时，要确保销毁spring容器上下文<br>spring 配置文件<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"jimClient"</span> <span class="attr">class</span>=<span class="string">"com.jd.jim.cli.ReloadableJimClientFactoryBean"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jimUrl"</span> <span class="attr">value</span>=<span class="string">"jim://1803528671997086613/2"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>java代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource</span>(name = <span class="string">"jimClient"</span>)</span><br><span class="line"><span class="keyword">private</span> Cluster jimClient;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getByKey</span><span class="params">(String key)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> jimClient.get(key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h6 id="3-1-3-非Spring环境下使用JIMDB-CLIENT"><a href="#3-1-3-非Spring环境下使用JIMDB-CLIENT" class="headerlink" title="3.1.3 非Spring环境下使用JIMDB CLIENT"></a>3.1.3 非Spring环境下使用JIMDB CLIENT</h6><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.jd.jim.cli.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.jd.jim.cli.Cluster;</span><br><span class="line"><span class="keyword">import</span> com.jd.jim.cli.ReloadableJimClientFactory;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JimClientDemo</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        JimClientFactory.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getByKey</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> JimClientFactory.getJimClient().get(key);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">JimClientFactory</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ReloadableJimClientFactory clientFactory;                                                                  </span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Cluster CLIENT_INSTANCE;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">static</span> &#123;</span><br><span class="line">            clientFactory = <span class="keyword">new</span> ReloadableJimClientFactory();</span><br><span class="line">            clientFactory.setJimUrl(<span class="string">"jim://1803528671997086613/2"</span>);</span><br><span class="line"></span><br><span class="line">            CLIENT_INSTANCE = clientFactory.getClient();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Cluster <span class="title">getJimClient</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> CLIENT_INSTANCE;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">if</span> (clientFactory != <span class="keyword">null</span>) &#123;</span><br><span class="line">                clientFactory.clear();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h6 id="3-1-4-Spring-cache-注解方式"><a href="#3-1-4-Spring-cache-注解方式" class="headerlink" title="3.1.4 Spring-cache 注解方式"></a>3.1.4 Spring-cache 注解方式</h6><p>spring.xml<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"configClient"</span> <span class="attr">class</span>=<span class="string">"com.jd.jim.cli.config.client.ConfigLongPollingClientFactoryBean"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"serviceEndpoint"</span> <span class="attr">value</span>=<span class="string">"http://cfs.jim.jd.local"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"jimClient"</span> <span class="attr">class</span>=<span class="string">"com.jd.jim.cli.ReloadableJimClientFactoryBean"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configClient"</span> <span class="attr">ref</span>=<span class="string">"configClient"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span><span class="comment">&lt;!-- configured to your needs --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jimUrl"</span> <span class="attr">value</span>=<span class="string">"jim://1803528818953446384/1"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"cacheManager"</span> <span class="attr">class</span>=<span class="string">"com.jd.jim.cli.springcache.JimCacheManager"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"caches"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">list</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.jd.jim.cli.springcache.JimStringCache"</span>&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- key前缀 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"keyPrefix"</span> <span class="attr">value</span>=<span class="string">"cachetest_"</span> /&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 客户端对象 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jimClient"</span> <span class="attr">ref</span>=<span class="string">"jimClient"</span> /&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- TTL时间(以'秒'为单位) --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"entryTimeout"</span> <span class="attr">value</span>=<span class="string">"60"</span> /&gt;</span></span><br><span class="line">                <span class="comment">&lt;!-- 值的序列化器 --&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"valueSerializer"</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">"com.jd.jim.cli.serializer.DefaultStringSerializer"</span> /&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">list</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">cache:annotation-driven</span> <span class="attr">cache-manager</span>=<span class="string">"cacheManager"</span> /&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>java 代码：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Cacheable</span>(value = <span class="string">"cachetest_"</span>, key = <span class="string">"#key"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">getMessage</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"miss, get from db..."</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"msg"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@CachePut</span>(value = <span class="string">"cachetest_"</span>, key = <span class="string">"#key"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">setMessage</span><span class="params">(String key, String message)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> message;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Caching</span>(evict = &#123; <span class="meta">@CacheEvict</span>(value = <span class="string">"cachetest_"</span>, key = <span class="string">"#key"</span>) &#125;)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">delete</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/IMG_0511.JPG" alt="ash Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Redis/" rel="tag">#Redis</a>
+          
+            <a href="/tags/分布式缓存/" rel="tag">#分布式缓存</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/11/redisinstall1/" rel="next" title="在linux下安装Redis">
+                <i class="fa fa-chevron-left"></i> 在linux下安装Redis
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/11/14/jdstudy/"
+     data-title="在京东的学习之JIMDB(一)"
+     data-content=""
+     data-url="https://www.yangkui.net/2016/11/14/jdstudy/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/14/jdstudy/"
+           data-title="在京东的学习之JIMDB(一)" data-url="https://www.yangkui.net/2016/11/14/jdstudy/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/IMG_0509.JPG"
+               alt="ash" />
+          <p class="site-author-name" itemprop="name">ash</p>
+          <p class="site-description motion-element" itemprop="description">起源,目标,历史,未来</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/1785223472" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xonging" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element">
+            <div class="links-of-blogroll-title">
+              <i class="fa fa-globe fa-fw"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://dimsky.github.io" title="Dimsky's&nbsp;Blog" target="_blank">Dimsky's&nbsp;Blog</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.zaowu.net.cn" title="造物" target="_blank">造物</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://1024ss.com/#10670" title="翻墙查资料" target="_blank">翻墙查资料</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.qimmy7.com" title="qimmy7" target="_blank">qimmy7</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目简介"><span class="nav-number">1.</span> <span class="nav-text">项目简介</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-项目背景"><span class="nav-number">1.1.</span> <span class="nav-text">1 项目背景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-1-当前缓存的使用现状及问题"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1 当前缓存的使用现状及问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-2-如何解决这些问题"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2 如何解决这些问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-JimDB的功能特性"><span class="nav-number">1.2.</span> <span class="nav-text">2 JimDB的功能特性</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-支持大容量缓存"><span class="nav-number">1.2.1.</span> <span class="nav-text">2.1 支持大容量缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#支持2种存储类型"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">支持2种存储类型</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-缓存数据的高可用性"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.2  缓存数据的高可用性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-3-支持多种I-O策略"><span class="nav-number">1.2.3.</span> <span class="nav-text">2.3 支持多种I/O策略</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-4-支持动态扩容"><span class="nav-number">1.2.4.</span> <span class="nav-text">2.4 支持动态扩容</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-5-支持特殊的命令及应用（spring-cache等）"><span class="nav-number">1.2.5.</span> <span class="nav-text">2.5 支持特殊的命令及应用（spring-cache等）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-如何使用"><span class="nav-number">1.3.</span> <span class="nav-text">3 如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#3-1-JAVA如何使用JIMDB"><span class="nav-number">1.3.1.</span> <span class="nav-text">3.1 JAVA如何使用JIMDB</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-1-通过MAVEN引如JIMDB-java客户端"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">3.1.1 通过MAVEN引如JIMDB java客户端</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-2-Spring环境下配置使用JIMDB-CLIENT"><span class="nav-number">1.3.1.2.</span> <span class="nav-text">3.1.2 Spring环境下配置使用JIMDB CLIENT</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-3-非Spring环境下使用JIMDB-CLIENT"><span class="nav-number">1.3.1.3.</span> <span class="nav-text">3.1.3 非Spring环境下使用JIMDB CLIENT</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-1-4-Spring-cache-注解方式"><span class="nav-number">1.3.1.4.</span> <span class="nav-text">3.1.4 Spring-cache 注解方式</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ash</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yangkui"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
