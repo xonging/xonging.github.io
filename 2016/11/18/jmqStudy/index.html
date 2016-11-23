@@ -81,19 +81,55 @@
 
 
 <meta name="description" content="JMQJMQ是系统技术部消息组自主研发的，提供可靠传递消息及数据的消息中间件平台，具有高的可用性、扩展性和运维性。
-架构">
+架构
+特点1.技术标准
+自定义协议规范
+zookeeper作为分布式协调器
+
+2.高可用
+采用Master/Slave模式部署，支持Failover
+采用同步发送、消息持久化，防止数据丢失
+消息异步归档到云存储，便于故障跟踪
+统一的异常消息重试服务，便于容错
+
+3.高性能
+自定义消息">
 <meta property="og:type" content="article">
 <meta property="og:title" content="京东JMQ的学习(1)">
 <meta property="og:url" content="https://www.yangkui.net/2016/11/18/jmqStudy/index.html">
 <meta property="og:site_name" content="终日乾乾,与时偕行">
 <meta property="og:description" content="JMQJMQ是系统技术部消息组自主研发的，提供可靠传递消息及数据的消息中间件平台，具有高的可用性、扩展性和运维性。
-架构">
+架构
+特点1.技术标准
+自定义协议规范
+zookeeper作为分布式协调器
+
+2.高可用
+采用Master/Slave模式部署，支持Failover
+采用同步发送、消息持久化，防止数据丢失
+消息异步归档到云存储，便于故障跟踪
+统一的异常消息重试服务，便于容错
+
+3.高性能
+自定义消息">
 <meta property="og:image" content="https://www.yangkui.net/images/IMG_1118.png">
-<meta property="og:updated_time" content="2016-11-18T09:54:15.976Z">
+<meta property="og:updated_time" content="2016-11-23T04:30:28.282Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="京东JMQ的学习(1)">
 <meta name="twitter:description" content="JMQJMQ是系统技术部消息组自主研发的，提供可靠传递消息及数据的消息中间件平台，具有高的可用性、扩展性和运维性。
-架构">
+架构
+特点1.技术标准
+自定义协议规范
+zookeeper作为分布式协调器
+
+2.高可用
+采用Master/Slave模式部署，支持Failover
+采用同步发送、消息持久化，防止数据丢失
+消息异步归档到云存储，便于故障跟踪
+统一的异常消息重试服务，便于容错
+
+3.高性能
+自定义消息">
 <meta name="twitter:image" content="https://www.yangkui.net/images/IMG_1118.png">
 
 
@@ -344,6 +380,48 @@
       
         <h4 id="JMQ"><a href="#JMQ" class="headerlink" title="JMQ"></a>JMQ</h4><p>JMQ是系统技术部消息组自主研发的，提供可靠传递消息及数据的消息中间件平台，具有高的可用性、扩展性和运维性。</p>
 <h4 id="架构"><a href="#架构" class="headerlink" title="架构"></a>架构</h4><p><img src="/images/IMG_1118.png" alt="JMQ架构图" title="JMQ架构图"></p>
+<h4 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h4><h5 id="1-技术标准"><a href="#1-技术标准" class="headerlink" title="1.技术标准"></a>1.技术标准</h5><ul>
+<li>自定义协议规范</li>
+<li>zookeeper作为分布式协调器</li>
+</ul>
+<h5 id="2-高可用"><a href="#2-高可用" class="headerlink" title="2.高可用"></a>2.高可用</h5><ul>
+<li>采用Master/Slave模式部署，支持Failover</li>
+<li>采用同步发送、消息持久化，防止数据丢失</li>
+<li>消息异步归档到云存储，便于故障跟踪</li>
+<li>统一的异常消息重试服务，便于容错</li>
+</ul>
+<h5 id="3-高性能"><a href="#3-高性能" class="headerlink" title="3.高性能"></a>3.高性能</h5><ul>
+<li>自定义消息序列化，默认开启压缩</li>
+<li>批量发送和接收</li>
+<li>基于Netty4，采用NIO，EPOLL模型</li>
+<li>更轻量级的数据存储模型，消息存储一份，减少拷贝，支持组提交，更快的索引，消息积压不影响写入速度</li>
+<li>内存镜像文件，更少的内存拷贝操作<blockquote>
+<h6 id="测试数据："><a href="#测试数据：" class="headerlink" title="测试数据："></a>测试数据：</h6><ul>
+<li>同步刷盘，1K消息体生产TPS为21000，响应时间为0.004秒</li>
+<li>异步刷盘，1K消息体生产TPS为53894，响应时间为0.004秒</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<h5 id="4-轻客户端"><a href="#4-轻客户端" class="headerlink" title="4.  轻客户端"></a>4.  轻客户端</h5><ul>
+<li>只和Broker通信</li>
+<li>内置管理和性能采集协议</li>
+<li>较合理的超时时间设置</li>
+<li>批量发送和消费，消费者为拉模式</li>
+<li>支持二阶段事务</li>
+<li>支持业务ID顺序消费(服务端BROKER数量调整或网络异常容错会破坏顺序)</li>
+<li>支持机房部署，就近发送和消费</li>
+</ul>
+<h5 id="5-更完善集群"><a href="#5-更完善集群" class="headerlink" title="5.  更完善集群"></a>5.  更完善集群</h5><ul>
+<li>一组支持多个节点，主、从、备份类型</li>
+<li>主从默认同步复制，可以降级为异步复制，备份节点异步复制</li>
+<li>更完善的主从选举，从节点可以从Agent同步主节点数据，防止数据不一致</li>
+<li>支持从节点和备份节点消费</li>
+</ul>
+<h5 id="6-管理监控"><a href="#6-管理监控" class="headerlink" title="6.  管理监控"></a>6.  管理监控</h5><ul>
+<li>管理端配置消费策略，生产策略，消息回放</li>
+<li>更丰富的监控图表</li>
+</ul>
 
       
     </div>
@@ -393,8 +471,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/14/jdstudy/" rel="next" title="在京东的学习之JIMDB(一)">
-                <i class="fa fa-chevron-left"></i> 在京东的学习之JIMDB(一)
+              <a href="/2016/11/14/use_case_in_uml/" rel="next" title="UML中的用例图（一）">
+                <i class="fa fa-chevron-left"></i> UML中的用例图（一）
               </a>
             
           </div>
@@ -582,7 +660,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#JMQ"><span class="nav-number">1.</span> <span class="nav-text">JMQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#架构"><span class="nav-number">2.</span> <span class="nav-text">架构</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#JMQ"><span class="nav-number">1.</span> <span class="nav-text">JMQ</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#架构"><span class="nav-number">2.</span> <span class="nav-text">架构</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特点"><span class="nav-number">3.</span> <span class="nav-text">特点</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-技术标准"><span class="nav-number">3.1.</span> <span class="nav-text">1.技术标准</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-高可用"><span class="nav-number">3.2.</span> <span class="nav-text">2.高可用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-高性能"><span class="nav-number">3.3.</span> <span class="nav-text">3.高性能</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#测试数据："><span class="nav-number">3.3.1.</span> <span class="nav-text">测试数据：</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-轻客户端"><span class="nav-number">3.4.</span> <span class="nav-text">4.  轻客户端</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-更完善集群"><span class="nav-number">3.5.</span> <span class="nav-text">5.  更完善集群</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#6-管理监控"><span class="nav-number">3.6.</span> <span class="nav-text">6.  管理监控</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
