@@ -64,7 +64,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="docker," />
 
 
 
@@ -80,16 +80,28 @@
 
 
 
-<meta name="description" content="用例图是什么？有什么用？首先,用例图是为了描述推荐工具starUML">
+<meta name="description" content="关于Docker首先Docker是一个开源的应用容器引擎,可以将应用程序和依赖打包到一个可移植的容器中,然后发布到Linux服务器,可用于实现虚拟化.容器与其他容器共享内核,作为独立的进程在主机操作系统的用户空间中运行。
+github&amp;nbsp;&amp;nbsp;官方介绍
+1 概念
+容器(container) 相当于一个轻量的主机,应用程序和其依赖都在其中
+镜像(image) 容器的模板文件,相当于容器">
 <meta property="og:type" content="article">
-<meta property="og:title" content="UML中的用例图（一）">
-<meta property="og:url" content="https://www.yangkui.net/2016/11/14/use_case_in_uml/index.html">
+<meta property="og:title" content="Docker 介绍(一)">
+<meta property="og:url" content="https://www.yangkui.net/2017/01/09/docker/index.html">
 <meta property="og:site_name" content="终日乾乾,与时偕行">
-<meta property="og:description" content="用例图是什么？有什么用？首先,用例图是为了描述推荐工具starUML">
-<meta property="og:updated_time" content="2016-12-30T07:34:53.122Z">
+<meta property="og:description" content="关于Docker首先Docker是一个开源的应用容器引擎,可以将应用程序和依赖打包到一个可移植的容器中,然后发布到Linux服务器,可用于实现虚拟化.容器与其他容器共享内核,作为独立的进程在主机操作系统的用户空间中运行。
+github&amp;nbsp;&amp;nbsp;官方介绍
+1 概念
+容器(container) 相当于一个轻量的主机,应用程序和其依赖都在其中
+镜像(image) 容器的模板文件,相当于容器">
+<meta property="og:updated_time" content="2017-01-09T11:03:46.455Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="UML中的用例图（一）">
-<meta name="twitter:description" content="用例图是什么？有什么用？首先,用例图是为了描述推荐工具starUML">
+<meta name="twitter:title" content="Docker 介绍(一)">
+<meta name="twitter:description" content="关于Docker首先Docker是一个开源的应用容器引擎,可以将应用程序和依赖打包到一个可移植的容器中,然后发布到Linux服务器,可用于实现虚拟化.容器与其他容器共享内核,作为独立的进程在主机操作系统的用户空间中运行。
+github&amp;nbsp;&amp;nbsp;官方介绍
+1 概念
+容器(container) 相当于一个轻量的主机,应用程序和其依赖都在其中
+镜像(image) 容器的模板文件,相当于容器">
 
 
 
@@ -107,7 +119,7 @@
   };
 </script>
 
-  <title> UML中的用例图（一） | 终日乾乾,与时偕行 </title>
+  <title> Docker 介绍(一) | 终日乾乾,与时偕行 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -247,7 +259,7 @@
             
             
               
-                UML中的用例图（一）
+                Docker 介绍(一)
               
             
           </h1>
@@ -259,19 +271,38 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-14T00:00:00+08:00" content="2016-11-14">
-              2016-11-14
+            <time itemprop="dateCreated" datetime="2017-01-09T15:13:41+08:00" content="2017-01-09">
+              2017-01-09
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/docker/" itemprop="url" rel="index">
+                    <span itemprop="name">docker</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/11/14/use_case_in_uml/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/14/use_case_in_uml/" itemprop="commentsCount"></span>
+                <a href="/2017/01/09/docker/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/09/docker/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -294,8 +325,19 @@
       
 
       
-        <h5 id="用例图是什么？有什么用？"><a href="#用例图是什么？有什么用？" class="headerlink" title="用例图是什么？有什么用？"></a>用例图是什么？有什么用？</h5><p>首先,用例图是为了描述<br>推荐工具starUML</p>
-
+        <h5 id="关于Docker"><a href="#关于Docker" class="headerlink" title="关于Docker"></a>关于Docker</h5><p>首先Docker是一个开源的应用容器引擎,可以将应用程序和依赖打包到一个可移植的容器中,然后发布到Linux服务器,可用于实现虚拟化.<br>容器与其他容器共享内核,作为独立的进程在主机操作系统的用户空间中运行。</p>
+<p><a href="https://github.com/docker/docker" target="_blank" rel="external">github</a>&nbsp;&nbsp;<br><a href="https://www.docker.com/what-docker" target="_blank" rel="external">官方介绍</a></p>
+<h6 id="1-概念"><a href="#1-概念" class="headerlink" title="1 概念"></a>1 概念</h6><ul>
+<li>容器(container) 相当于一个轻量的主机,应用程序和其依赖都在其中</li>
+<li>镜像(image) 容器的模板文件,相当于容器的安装文件</li>
+<li>仓库(repository) 镜像的版本管理库,类似Git,<a href="https://hub.docker.com/" target="_blank" rel="external">官方镜像库</a></li>
+<li>Dockerfile 用于构建镜像,主要描述镜像构建过程和容器启动时的命令</li>
+</ul>
+<h6 id="2-安装docker-Ubuntu"><a href="#2-安装docker-Ubuntu" class="headerlink" title="2 安装docker(Ubuntu)"></a>2 安装docker(Ubuntu)</h6><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install docker.io</span><br></pre></td></tr></table></figure>
+<h6 id="3-运行第一个镜像"><a href="#3-运行第一个镜像" class="headerlink" title="3 运行第一个镜像"></a>3 运行第一个镜像</h6><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -it ubuntu <span class="built_in">echo</span> <span class="string">"hello world"</span></span><br><span class="line">&gt;hello world</span><br></pre></td></tr></table></figure>
+<p>在第一次运行的过程中,Docker engine会根据镜像名称(这里我使用的Ubuntu)和tag(默认为latest,即最新版)在本地寻找镜像,如果没有则向远程仓库中寻找并pull到本地,然后启动此镜像</p>
+<h6 id="4-根据自己程序自定义镜像"><a href="#4-根据自己程序自定义镜像" class="headerlink" title="4 根据自己程序自定义镜像"></a>4 根据自己程序自定义镜像</h6><p>自定义镜像主要依赖于Dockerfile和docker-compose.yaml(可选)</p>
+<h6 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h6>
       
     </div>
     
@@ -329,22 +371,24 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/docker/" rel="tag">#docker</a>
+          
+        </div>
+      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/11/14/jdstudy/" rel="next" title="在京东的学习之JIMDB(一)">
-                <i class="fa fa-chevron-left"></i> 在京东的学习之JIMDB(一)
+              <a href="/2016/11/18/jmqStudy/" rel="next" title="京东JMQ的学习(1)">
+                <i class="fa fa-chevron-left"></i> 京东JMQ的学习(1)
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/11/18/jmqStudy/" rel="prev" title="京东JMQ的学习(1)">
-                京东JMQ的学习(1) <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -359,10 +403,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/11/14/use_case_in_uml/"
-     data-title="UML中的用例图（一）"
+        <div class="ds-share flat" data-thread-key="2017/01/09/docker/"
+     data-title="Docker 介绍(一)"
      data-content=""
-     data-url="https://www.yangkui.net/2016/11/14/use_case_in_uml/">
+     data-url="https://www.yangkui.net/2017/01/09/docker/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -389,8 +433,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/11/14/use_case_in_uml/"
-           data-title="UML中的用例图（一）" data-url="https://www.yangkui.net/2016/11/14/use_case_in_uml/">
+      <div class="ds-thread" data-thread-key="2017/01/09/docker/"
+           data-title="Docker 介绍(一)" data-url="https://www.yangkui.net/2017/01/09/docker/">
       </div>
     
   </div>
@@ -527,7 +571,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#用例图是什么？有什么用？"><span class="nav-number">1.</span> <span class="nav-text">用例图是什么？有什么用？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#关于Docker"><span class="nav-number">1.</span> <span class="nav-text">关于Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-概念"><span class="nav-number">1.1.</span> <span class="nav-text">1 概念</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-安装docker-Ubuntu"><span class="nav-number">1.2.</span> <span class="nav-text">2 安装docker(Ubuntu)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-运行第一个镜像"><span class="nav-number">1.3.</span> <span class="nav-text">3 运行第一个镜像</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-根据自己程序自定义镜像"><span class="nav-number">1.4.</span> <span class="nav-text">4 根据自己程序自定义镜像</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#未完待续"><span class="nav-number">1.5.</span> <span class="nav-text">未完待续</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
