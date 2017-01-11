@@ -82,26 +82,26 @@
 
 <meta name="description" content="关于Docker首先Docker是一个开源的应用容器引擎,可以将应用程序和依赖打包到一个可移植的容器中,然后发布到Linux服务器,可用于实现虚拟化.容器与其他容器共享内核,作为独立的进程在主机操作系统的用户空间中运行。
 github&amp;nbsp;&amp;nbsp;官方介绍
-1 概念
+概念
 容器(container) 相当于一个轻量的主机,应用程序和其依赖都在其中
-镜像(image) 容器的模板文件,相当于容器">
+镜像(image) 容器的模板文件,相当于容器的安">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Docker 介绍(一)">
 <meta property="og:url" content="https://www.yangkui.net/2017/01/09/docker/index.html">
 <meta property="og:site_name" content="终日乾乾,与时偕行">
 <meta property="og:description" content="关于Docker首先Docker是一个开源的应用容器引擎,可以将应用程序和依赖打包到一个可移植的容器中,然后发布到Linux服务器,可用于实现虚拟化.容器与其他容器共享内核,作为独立的进程在主机操作系统的用户空间中运行。
 github&amp;nbsp;&amp;nbsp;官方介绍
-1 概念
+概念
 容器(container) 相当于一个轻量的主机,应用程序和其依赖都在其中
-镜像(image) 容器的模板文件,相当于容器">
-<meta property="og:updated_time" content="2017-01-11T06:54:53.301Z">
+镜像(image) 容器的模板文件,相当于容器的安">
+<meta property="og:updated_time" content="2017-01-11T11:51:47.404Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Docker 介绍(一)">
 <meta name="twitter:description" content="关于Docker首先Docker是一个开源的应用容器引擎,可以将应用程序和依赖打包到一个可移植的容器中,然后发布到Linux服务器,可用于实现虚拟化.容器与其他容器共享内核,作为独立的进程在主机操作系统的用户空间中运行。
 github&amp;nbsp;&amp;nbsp;官方介绍
-1 概念
+概念
 容器(container) 相当于一个轻量的主机,应用程序和其依赖都在其中
-镜像(image) 容器的模板文件,相当于容器">
+镜像(image) 容器的模板文件,相当于容器的安">
 
 
 
@@ -327,16 +327,16 @@ github&amp;nbsp;&amp;nbsp;官方介绍
       
         <h5 id="关于Docker"><a href="#关于Docker" class="headerlink" title="关于Docker"></a>关于Docker</h5><p>首先Docker是一个开源的应用容器引擎,可以将应用程序和依赖打包到一个可移植的容器中,然后发布到Linux服务器,可用于实现虚拟化.<br>容器与其他容器共享内核,作为独立的进程在主机操作系统的用户空间中运行。</p>
 <p><a href="https://github.com/docker/docker" target="_blank" rel="external">github</a>&nbsp;&nbsp;<br><a href="https://www.docker.com/what-docker" target="_blank" rel="external">官方介绍</a></p>
-<h6 id="1-概念"><a href="#1-概念" class="headerlink" title="1 概念"></a>1 概念</h6><ul>
+<h6 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h6><ul>
 <li>容器(container) 相当于一个轻量的主机,应用程序和其依赖都在其中</li>
 <li>镜像(image) 容器的模板文件,相当于容器的安装文件</li>
 <li>仓库(repository) 镜像的版本管理库,类似Git,<a href="https://hub.docker.com/" target="_blank" rel="external">官方镜像库</a></li>
 <li>Dockerfile 用于构建镜像,主要描述镜像构建过程和容器启动时的命令</li>
 </ul>
-<h6 id="2-安装docker-Ubuntu"><a href="#2-安装docker-Ubuntu" class="headerlink" title="2 安装docker(Ubuntu)"></a>2 安装docker(Ubuntu)</h6><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install docker.io</span><br></pre></td></tr></table></figure>
-<h6 id="3-运行第一个镜像"><a href="#3-运行第一个镜像" class="headerlink" title="3 运行第一个镜像"></a>3 运行第一个镜像</h6><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -it ubuntu <span class="built_in">echo</span> <span class="string">"hello world"</span></span><br><span class="line">&gt;hello world</span><br></pre></td></tr></table></figure>
+<h6 id="安装docker-Ubuntu"><a href="#安装docker-Ubuntu" class="headerlink" title="安装docker(Ubuntu)"></a>安装docker(Ubuntu)</h6><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install docker.io</span><br></pre></td></tr></table></figure>
+<h6 id="运行第一个镜像"><a href="#运行第一个镜像" class="headerlink" title="运行第一个镜像"></a>运行第一个镜像</h6><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -it ubuntu <span class="built_in">echo</span> <span class="string">"hello world"</span></span><br><span class="line">&gt;hello world</span><br></pre></td></tr></table></figure>
 <p>在第一次运行的过程中,Docker engine会根据镜像名称(这里我使用的Ubuntu)和tag(默认为latest,即最新版)在本地寻找镜像,如果没有则向远程仓库中寻找并pull到本地,然后启动此镜像</p>
-<h6 id="4-根据自己程序自定义镜像"><a href="#4-根据自己程序自定义镜像" class="headerlink" title="4 根据自己程序自定义镜像"></a>4 根据自己程序自定义镜像</h6><p>自定义镜像主要依赖于Dockerfile和docker-compose.yaml(可选)</p>
+<h6 id="根据自己程序自定义镜像"><a href="#根据自己程序自定义镜像" class="headerlink" title="根据自己程序自定义镜像"></a>根据自己程序自定义镜像</h6><p>自定义镜像主要依赖于Dockerfile和docker-compose.yaml(可选)</p>
 <p>一个简单的Dockerfile 文件如下<br><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">FROM</span> nginx <span class="comment">#父镜像</span></span><br><span class="line">COPY ./ /usr/share/nginx/html/ <span class="comment">#拷贝Dockerfile 所在的目录下的内容到容器中的目录</span></span><br><span class="line"><span class="keyword">EXPOSE</span> <span class="number">80</span> <span class="comment">#对主机暴露的端口</span></span><br><span class="line">CMD [<span class="string">"nginx"</span>, <span class="string">"-g"</span>, <span class="string">"daemon off;"</span>] <span class="comment">#启动时执行的指令</span></span><br></pre></td></tr></table></figure></p>
 <p>根据Dockerfile 构建镜像<br><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker build <span class="_">-f</span> /path/to/a/Dockerfile .</span><br></pre></td></tr></table></figure></p>
 <p>关于Dockerfile的详细介绍请见：<a href="https://docs.docker.com/engine/reference/builder/" target="_blank" rel="external">传送门</a></p>
@@ -575,7 +575,7 @@ github&amp;nbsp;&amp;nbsp;官方介绍
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#关于Docker"><span class="nav-number">1.</span> <span class="nav-text">关于Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#1-概念"><span class="nav-number">1.1.</span> <span class="nav-text">1 概念</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#2-安装docker-Ubuntu"><span class="nav-number">1.2.</span> <span class="nav-text">2 安装docker(Ubuntu)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#3-运行第一个镜像"><span class="nav-number">1.3.</span> <span class="nav-text">3 运行第一个镜像</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#4-根据自己程序自定义镜像"><span class="nav-number">1.4.</span> <span class="nav-text">4 根据自己程序自定义镜像</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#未完待续"><span class="nav-number">1.5.</span> <span class="nav-text">未完待续</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#关于Docker"><span class="nav-number">1.</span> <span class="nav-text">关于Docker</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#概念"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#安装docker-Ubuntu"><span class="nav-number">1.2.</span> <span class="nav-text">安装docker(Ubuntu)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#运行第一个镜像"><span class="nav-number">1.3.</span> <span class="nav-text">运行第一个镜像</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#根据自己程序自定义镜像"><span class="nav-number">1.4.</span> <span class="nav-text">根据自己程序自定义镜像</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#未完待续"><span class="nav-number">1.5.</span> <span class="nav-text">未完待续</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
