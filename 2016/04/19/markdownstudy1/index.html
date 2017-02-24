@@ -86,7 +86,7 @@
 <meta property="og:url" content="https://www.yangkui.net/2016/04/19/markdownstudy1/index.html">
 <meta property="og:site_name" content="终日乾乾,与时偕行">
 <meta property="og:description" content="最近有学习到一个开源的博客工具Hexo,了解到它利用Markdown来编写博客内容然后生成静态的网页,而Markdown的结构比较简单,编写起来非常的方便.现在是我在学习Markdown时做的笔记首先编写工具的选择,最近在玩Atom,貌似该开发工具对Markdown支持的不错,各种预览功能和语法提示等等,同时Atom也是一个很强大的编辑工具,所以选择它来编写MarkdownAtom相关介绍和各版本">
-<meta property="og:updated_time" content="2017-01-18T07:08:47.752Z">
+<meta property="og:updated_time" content="2017-01-18T12:15:12.997Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="markdown语法的学习(1)">
 <meta name="twitter:description" content="最近有学习到一个开源的博客工具Hexo,了解到它利用Markdown来编写博客内容然后生成静态的网页,而Markdown的结构比较简单,编写起来非常的方便.现在是我在学习Markdown时做的笔记首先编写工具的选择,最近在玩Atom,貌似该开发工具对Markdown支持的不错,各种预览功能和语法提示等等,同时Atom也是一个很强大的编辑工具,所以选择它来编写MarkdownAtom相关介绍和各版本">
@@ -330,9 +330,11 @@
 <p>结果预览：</p>
 <h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">二级标题</span><br><span class="line">--</span><br></pre></td></tr></table></figure>
 <p>结果预览：</p>
-<h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><p>#<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># title 1</span><br><span class="line">## title 2</span><br><span class="line">### title 3</span><br><span class="line">#### title 4</span><br><span class="line">##### title 5</span><br></pre></td></tr></table></figure></p>
+<h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><p>#<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># title 1</span><br><span class="line">## title 2</span><br><span class="line">### title 3</span><br><span class="line">#### title 4</span><br><span class="line">##### title 5</span><br><span class="line">###### title 6</span><br></pre></td></tr></table></figure></p>
 <p>结果预览：</p>
-<h1 id="title-1"><a href="#title-1" class="headerlink" title="title 1"></a>title 1</h1><h2 id="title-2"><a href="#title-2" class="headerlink" title="title 2"></a>title 2</h2><h3 id="title-3"><a href="#title-3" class="headerlink" title="title 3"></a>title 3</h3><h4 id="title-4"><a href="#title-4" class="headerlink" title="title 4"></a>title 4</h4><h5 id="title-5"><a href="#title-5" class="headerlink" title="title 5"></a>title 5</h5><p>……</p>
+<h1 id="title-1"><a href="#title-1" class="headerlink" title="title 1"></a>title 1</h1><h2 id="title-2"><a href="#title-2" class="headerlink" title="title 2"></a>title 2</h2><h3 id="title-3"><a href="#title-3" class="headerlink" title="title 3"></a>title 3</h3><h4 id="title-4"><a href="#title-4" class="headerlink" title="title 4"></a>title 4</h4><h5 id="title-5"><a href="#title-5" class="headerlink" title="title 5"></a>title 5</h5><h6 id="title-6"><a href="#title-6" class="headerlink" title="title 6"></a>title 6</h6><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*斜体*</span><br></pre></td></tr></table></figure>
+<p><em>斜体</em><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**粗体**</span><br></pre></td></tr></table></figure></p>
+<p><strong>粗体</strong></p>
 <p>有序列表<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1.  item1</span><br><span class="line">2.  item2</span><br><span class="line">3.  item3</span><br><span class="line">或者</span><br><span class="line">2.  item1</span><br><span class="line">1.  item2</span><br><span class="line">3.  item3</span><br></pre></td></tr></table></figure></p>
 <p>预览结果</p>
 <ol>
@@ -340,6 +342,27 @@
 <li>item2</li>
 <li>item3</li>
 </ol>
+<p>无序列表<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>item1</span><br><span class="line"><span class="bullet">* </span>item2</span><br><span class="line"><span class="bullet">* </span>item3</span><br></pre></td></tr></table></figure></p>
+<p>结果预览</p>
+<ul>
+<li>item1</li>
+<li>item2</li>
+<li>item3</li>
+</ul>
+<p>嵌套<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1.  第一级别1</span><br><span class="line">  1. 第二级别1</span><br><span class="line">  2. 第二级别2</span><br><span class="line">2.  第一级别</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>第一级别1<ol>
+<li>第二级别1</li>
+<li>第二级别2</li>
+</ol>
+</li>
+<li>第一级别</li>
+</ol>
+<p>链接</p>
+<p>引用式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">I get 10 times more traffic from [Google][1] than from [Yahoo][2] or [MSN][3].  </span><br><span class="line"></span><br><span class="line">[1]: http://google.com/        &quot;Google&quot;</span><br><span class="line">[2]: http://search.yahoo.com/  &quot;Yahoo Search&quot;</span><br><span class="line">[3]: http://search.msn.com/    &quot;MSN Search&quot;</span><br></pre></td></tr></table></figure></p>
+<p>I get 10 times more traffic from <a href="http://google.com/" title="Google" target="_blank" rel="external">Google</a> than from <a href="http://search.yahoo.com/" title="Yahoo Search" target="_blank" rel="external">Yahoo</a> or <a href="http://search.msn.com/" title="MSN Search" target="_blank" rel="external">MSN</a>.  </p>
+<p>内联式<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[Google](http://www.google.com &quot;Google&quot;)</span><br></pre></td></tr></table></figure></p>
+<p><a href="http://www.google.com" title="Google" target="_blank" rel="external">Google</a></p>
 <p>表格<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">| Tables        | Are           | Cool  |</span><br><span class="line">| ------------- |:-------------:| -----:|</span><br><span class="line">| col 3 is      | right-aligned | $1600 |</span><br><span class="line">| col 2 is      | centered      |   $12 |</span><br><span class="line">| zebra stripes | are neat      |    $1 |</span><br></pre></td></tr></table></figure></p>
 <table>
 <thead>
@@ -543,7 +566,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-count">10</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -560,7 +583,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -635,7 +658,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#最近有学习到一个开源的博客工具Hexo-了解到它利用Markdown来编写博客内容然后生成静态的网页-而Markdown的结构比较简单-编写起来非常的方便"><span class="nav-number">1.</span> <span class="nav-text">最近有学习到一个开源的博客工具Hexo,了解到它利用Markdown来编写博客内容然后生成静态的网页,而Markdown的结构比较简单,编写起来非常的方便.</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#现在是我在学习Markdown时做的笔记"><span class="nav-number"></span> <span class="nav-text">现在是我在学习Markdown时做的笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#首先编写工具的选择-最近在玩Atom-貌似该开发工具对Markdown支持的不错-各种预览功能和语法提示等等-同时Atom也是一个很强大的编辑工具-所以选择它来编写Markdown"><span class="nav-number">1.</span> <span class="nav-text">首先编写工具的选择,最近在玩Atom,貌似该开发工具对Markdown支持的不错,各种预览功能和语法提示等等,同时Atom也是一个很强大的编辑工具,所以选择它来编写Markdown</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标题设置"><span class="nav-number"></span> <span class="nav-text">标题设置</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一级标题"><span class="nav-number"></span> <span class="nav-text">一级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二级标题"><span class="nav-number"></span> <span class="nav-text">二级标题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#title-1"><span class="nav-number"></span> <span class="nav-text">title 1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-2"><span class="nav-number"></span> <span class="nav-text">title 2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#title-3"><span class="nav-number"></span> <span class="nav-text">title 3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#title-4"><span class="nav-number"></span> <span class="nav-text">title 4</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#title-5"><span class="nav-number">1.</span> <span class="nav-text">title 5</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#最近有学习到一个开源的博客工具Hexo-了解到它利用Markdown来编写博客内容然后生成静态的网页-而Markdown的结构比较简单-编写起来非常的方便"><span class="nav-number">1.</span> <span class="nav-text">最近有学习到一个开源的博客工具Hexo,了解到它利用Markdown来编写博客内容然后生成静态的网页,而Markdown的结构比较简单,编写起来非常的方便.</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#现在是我在学习Markdown时做的笔记"><span class="nav-number"></span> <span class="nav-text">现在是我在学习Markdown时做的笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#首先编写工具的选择-最近在玩Atom-貌似该开发工具对Markdown支持的不错-各种预览功能和语法提示等等-同时Atom也是一个很强大的编辑工具-所以选择它来编写Markdown"><span class="nav-number">1.</span> <span class="nav-text">首先编写工具的选择,最近在玩Atom,貌似该开发工具对Markdown支持的不错,各种预览功能和语法提示等等,同时Atom也是一个很强大的编辑工具,所以选择它来编写Markdown</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#标题设置"><span class="nav-number"></span> <span class="nav-text">标题设置</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一级标题"><span class="nav-number"></span> <span class="nav-text">一级标题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#二级标题"><span class="nav-number"></span> <span class="nav-text">二级标题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#title-1"><span class="nav-number"></span> <span class="nav-text">title 1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#title-2"><span class="nav-number"></span> <span class="nav-text">title 2</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#title-3"><span class="nav-number"></span> <span class="nav-text">title 3</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#title-4"><span class="nav-number"></span> <span class="nav-text">title 4</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#title-5"><span class="nav-number">1.</span> <span class="nav-text">title 5</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#title-6"><span class="nav-number">1.1.</span> <span class="nav-text">title 6</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
